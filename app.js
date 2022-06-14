@@ -38,6 +38,13 @@ const player = new Fighter({
     offset: {
         x: 0,
         y: 0
+    },
+    imageSrc: "./img/wizard/Idle.png",
+    framesMax: 6,
+    scale: 1.6,
+    offset: {
+        x: 100,
+        y: 78
     }
 })
 
@@ -83,7 +90,7 @@ const animate = () => {
     background.update()
     shop.update()
     player.update()
-    enemy.update()
+    // enemy.update()
 
     player.velocity.x = 0
     enemy.velocity.x = 0
