@@ -83,6 +83,35 @@ const enemy = new Fighter({
     offset: {
         x: -50,
         y: 0
+    },
+    imageSrc: "./img/kenji/Idle.png", 
+    framesMax: 4,
+    scale: 2.5,
+    offset: {
+        x: 215,
+        y: 167
+    },
+    sprites: {
+        idle: {
+            imageSrc: "./img/kenji/Idle.png",
+            framesMax: 4
+        },
+        run: {
+            imageSrc: "./img/kenji/Run.png",
+            framesMax: 8
+        },
+        jump: {
+            imageSrc: "./img/kenji/Jump.png",
+            framesMax: 2
+        },
+        fall: {
+            imageSrc: "./img/kenji/Fall.png",
+            framesMax: 2
+        },
+        attack1: {
+            imageSrc: "./img/kenji/Attack1.png",
+            framesMax: 4
+        }
     }
 })
 
@@ -112,7 +141,7 @@ const animate = () => {
     background.update()
     shop.update()
     player.update()
-    // enemy.update()
+    enemy.update()
 
     player.velocity.x = 0
     enemy.velocity.x = 0
@@ -128,7 +157,7 @@ const animate = () => {
         player.switchSprite("idle")
     }
 
-    // jumping
+    // player jumping
     if (player.velocity.y < 0) {
         player.switchSprite("jump")
     } else if (player.velocity.y > 0) {
@@ -138,8 +167,19 @@ const animate = () => {
     // Enemy movement
     if (keys.ArrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
         enemy.velocity.x = -5
+        enemy.switchSprite("run")
     } else if (keys.ArrowRight.pressed && enemy.lastKey === "ArrowRight") {
         enemy.velocity.x = 5
+        enemy.switchSprite("run")
+    } else {
+        enemy.switchSprite("idle")
+    }
+
+    // enemy jumping
+    if (enemy.velocity.y < 0) {
+        enemy.switchSprite("jump")
+    } else if (enemy.velocity.y > 0) {
+        enemy.switchSprite("fall")
     }
 
     // Detect for collision
@@ -180,32 +220,32 @@ window.addEventListener("keydown", (event) => {
         case "d":
             keys.d.pressed = true
             player.lastKey = "d"
-            break
+            break;
         case "a":
             keys.a.pressed = true
             player.lastKey = "a"
-            break
+            break;
         case "w":
             player.velocity.y = -20
-            break
+            break;
         case " ":
             player.attack()
-            break
+            break;
 
         case "ArrowRight":
             keys.ArrowRight.pressed = true
             enemy.lastKey = "ArrowRight"
-            break
+            break;
         case "ArrowLeft":
             keys.ArrowLeft.pressed = true
             enemy.lastKey = "ArrowLeft"
-            break
+            break;
         case "ArrowUp":
             enemy.velocity.y = -20
-            break
+            break;
         case "ArrowDown":
-            enemy.isAttacking = true
-            break 
+            enemy.attack()
+            break;
     }
 })
 
