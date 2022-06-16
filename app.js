@@ -61,7 +61,11 @@ const player = new Fighter({
         },
         fall: {
             imageSrc: "./img/samurai/Fall.png",
-            framesMax: 2     
+            framesMax: 2
+        },
+        attack1: {
+            imageSrc: "./img/samurai/Attack1.png",
+            framesMax: 6
         }
     }
 })
